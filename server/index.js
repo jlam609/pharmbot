@@ -9,12 +9,9 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.static(path.join(__dirname, "../dist")));
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-// Imports dependencies and set up http server
 const request = require("request");
 const body_parser = require("body-parser");
 app.use(body_parser.json()); // creates express http server
-
-// Sets server port and logs message on success
 
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
