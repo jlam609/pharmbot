@@ -6,8 +6,7 @@
   "scripts": {
     "build": "webpack",
     "build:watch": "webpack --watch",
-    "start": "node server/index.js",
-    "start:dev": "node-dev --respawn server/index.js"
+    "start": "node-dev --respawn server/index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +15,7 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "node-dev": "^5.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
