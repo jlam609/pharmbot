@@ -1,0 +1,11 @@
+const TYPES = {
+    SET_VIEW: "SET_VIEW",
+    SET_AGE: "SET_AGE",
+    SET_PREGNANT: "SET_PREGNANT",
+    SET_SYMPTOM: "SET_SYMPTOM",
+    SET_DATA: "SET_DATA",
+    SET_DRUG:"SET_DRUG",
+    CLEAR_ALL:"CLEAR_ALL",
+}
+
+module.exports = TYPES

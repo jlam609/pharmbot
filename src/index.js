@@ -1,14 +1,16 @@
-import React from 'react'
-import {render} from 'react-dom'
-
-const App = () => {
-    return(
-        <h1>My App</h1>
-    )
-}
+import React, { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { render } from "react-dom";
+import App from "./Components/app";
+import { Provider } from "react-redux";
+import store from "./Store";
 
 render(
-    <App/>,
-    document.getElementById('root'),
-    () => console.log('rendered')
-)
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
+  document.getElementById("root"),
+  () => console.log("rendered")
+);
