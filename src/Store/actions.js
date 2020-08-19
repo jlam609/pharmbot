@@ -48,6 +48,11 @@ const searchDrug = (e, drug) => {
   };
 };
 
+const setRashResult = (rashResult) => {
+    type:TYPES.SET_RASH_RESULT,
+    rashResult
+}
+
 export {
   setView,
   setAge,
@@ -57,4 +62,5 @@ export {
   setDrug,
   clearAll,
   searchDrug,
+  setRashResult
 };

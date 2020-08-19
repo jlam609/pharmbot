@@ -13,7 +13,7 @@ import { setSymptom, setView } from "../../Store/actions";
 const Form1 = ({ dispatch, symptom, view }) => {
   return (
       <div className={view === "form1" ? "recommendForm" : "ghost"}>
-        <h4>Hi! What kind of Symptoms are you having today?</h4>
+        <h4>Hi! What do you need help with today?</h4>
         <br />
         <FormControl component="fieldset">
           <FormLabel component="legend">Symptoms</FormLabel>
@@ -70,6 +70,7 @@ const Form1 = ({ dispatch, symptom, view }) => {
 };
 
 const mapState = ({ view, symptom }) => {
+    console.log(symptom)
   return {
     view,
     symptom,

@@ -6,6 +6,7 @@ const TYPES = {
     SET_DATA: "SET_DATA",
     SET_DRUG:"SET_DRUG",
     CLEAR_ALL:"CLEAR_ALL",
+    SET_RASH_RESULT: "SET_RASH_RESULT"
 }
 
 module.exports = TYPES

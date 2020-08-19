@@ -9,6 +9,7 @@ const initialState = {
   symptom: "",
   data: {},
   drug: "",
+  rashResult: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -46,6 +47,11 @@ const reducer = (state = initialState, action) => {
     case TYPES.CLEAR_ALL:
       return {
         ...initialState,
+      };
+    case TYPES.SET_RASH_RESULT:
+      return {
+        ...state,
+        rashResult: action.rashResult,
       };
     default:
       return state;

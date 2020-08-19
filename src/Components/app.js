@@ -4,6 +4,7 @@ import Nav from "./nav";
 import Search from "./search";
 import Home from "./home";
 import Recommend from "./recommend";
+import Result from "./result";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/home" component={Home} />
         <Route path="/search" component={Search} />
         <Route path="/recommend" component={Recommend} />
+        <Route path="/result" component={Result} />
         <Redirect to="/home" />
       </Switch>
     </div>

@@ -8,9 +8,11 @@ import {
   Button,
 } from "@material-ui/core";
 import { connect } from "react-redux";
+import {useHistory} from "react-router-dom"
 import { setPregnant, setView, setAge } from "../../Store/actions";
 
-const Form2 = ({ dispatch, pregnant, view, age }) => {
+const Form2 = ({ dispatch, pregnant, view, age, symptom, handleSubmit}) => {
+    const history = useHistory()
   return (
     <div className={view === "form2" ? "recommendForm" : "ghost"}>
       <h4>Additional Information Needed</h4>
@@ -37,10 +39,7 @@ const Form2 = ({ dispatch, pregnant, view, age }) => {
         </RadioGroup>
       </FormControl>
       <Button
-        onClick={(e) => {
-          e.preventDefault();
-          dispatch(setView("form3"));
-        }}
+        onClick={(e) => handleSubmit(e, symptom, history)}
         disabled={!pregnant || !age}
       >
         Submit Answers
@@ -49,16 +48,28 @@ const Form2 = ({ dispatch, pregnant, view, age }) => {
   );
 };
 
-const mapState = ({ view, pregnant, age }) => {
+const mapState = ({ view, pregnant, age, symptom }) => {
   return {
     view,
     pregnant,
     age,
+    symptom,
   };
 };
 const mapDispatch = (dispatch) => {
+   const handleSubmit = (e, symptom, history) => {
+    e.preventDefault()
+    if (symptom === 'Rash'){
+        dispatch(setView('form3'))
+    }
+    else {
+        dispatch(setView('form1'))
+        history.push(`/result`)
+    }
+   }
   return {
     dispatch,
+    handleSubmit
   };
 };
 export default connect(mapState, mapDispatch)(Form2);

@@ -17,7 +17,6 @@
     margin-top: 20px;
 }
 .recommendForm{
-    margin-top: 20px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -25,4 +24,9 @@
     border: solid black 1px;
     padding: 20px;
     width: 400px
+}
+.recommendBody{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
 }
