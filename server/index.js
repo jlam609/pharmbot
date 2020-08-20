@@ -55,7 +55,9 @@ app.get("/webhook", (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
-  console.log(received_message)
+  console.log("intents:",received_message.nlp.intents)
+  console.log("entities:",received_message.nlp.entities)
+  console.log("detected_locales:", received_message.nlp.detected_locales)
   if (received_message.text) {
     response = {
       text: `Thank you for contacting us! Please visit https://boiling-wave-53146.herokuapp.com/recommend for a recommendation`,
