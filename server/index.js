@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, "../dist")));
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const request = require("request");
 const body_parser = require("body-parser");
-app.use(body_parser.json());
+app.use(body_parser.json()); 
 
 app.post("/webhook", (req, res) => {
   let body = req.body;
@@ -52,14 +52,76 @@ app.get("/webhook", (req, res) => {
     }
   }
 });
+
+function handleMessage(sender_psid, received_message) {
+  let response;
+  console.log(recieved_message.nlp.entities)
+  if (received_message.text) {
+    response = {
+      text: `Thank you for contacting us! Please visit https://boiling-wave-53146.herokuapp.com/recommend for a e`,
+    };
+  } else if (received_message.attachments) {
+    // Get the URL of the message attachment
+    let attachment_url = received_message.attachments[0].payload.url;
+    response = {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [
+            {
+              title: "Is this the right picture?",
+              subtitle: "Tap a button to answer.",
+              image_url: attachment_url,
+              buttons: [
+                {
+                  type: "postback",
+                  title: "Yes!",
+                  payload: "yes",
+                },
+                {
+                  type: "postback",
+                  title: "No!",
+                  payload: "no",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    };
+  }
+
+  // Send the response message
+  callSendAPI(sender_psid, response);
+}
+
+function handlePostback(sender_psid, received_postback) {
+  console.log("ok");
+  let response;
+  // Get the payload for the postback
+  let payload = received_postback.payload;
+
+  // Set the response based on the postback payload
+  if (payload === "yes") {
+    response = { text: "Thanks!" };
+  } else if (payload === "no") {
+    response = { text: "Oops, try sending another image." };
+  }
+  // Send the message to acknowledge the postback
+  callSendAPI(sender_psid, response);
+}
+
 function callSendAPI(sender_psid, response) {
-    console.log(sender_psid, response)
+  // Construct the message body
   let request_body = {
     recipient: {
       id: sender_psid,
     },
-    message: {'text': response},
+    message: response,
   };
+
+  // Send the HTTP request to the Messenger Platform
   request(
     {
       uri: "https://graph.facebook.com/v2.6/me/messages",
@@ -76,65 +138,11 @@ function callSendAPI(sender_psid, response) {
     }
   );
 }
-
-function firstEntity(nlp, name) {
-  console.log(nlp, nlp.entities, nlp.entities[name], nlp.entities[name][0]);
-  return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
-}
-
-function handleMessage(sender_psid, message) {
-  if (message && message.attachments && message.attachments[0].payload) {
-    callSendAPI(sender_psid, "Thank you for visiting this page!");
-    return;
-  }
-
-  let entitiesArr = ["greetings", "thanks", "bye"];
-  let entityChosen = "";
-  entitiesArr.forEach((name) => {
-    let entity = firstEntity(message.nlp, name);
-    if (entity && entity.confidence > 0.8) {
-      entityChosen = name;
-    }
-  });
-
-  if (entityChosen === "") {
-    //default
-    callSendAPI(
-      sender_psid,
-      `The bot is needed more training, try to say "thanks a lot" or "hi" to the bot`
-    );
-  } else {
-    if (entityChosen === "greetings") {
-      //send greetings message
-      callSendAPI(sender_psid, "Hi there! Thank you for visiting this page!");
-    }
-    if (entityChosen === "thanks") {
-      //send thanks message
-      callSendAPI(sender_psid, `You 're welcome!`);
-    }
-    if (entityChosen === "bye") {
-      //send bye message
-      callSendAPI(sender_psid, "bye-bye!");
-    }
-  }
-}
-
-function handlePostback(sender_psid, received_postback) {
-  console.log("ok");
-  let response;
-  let payload = received_postback.payload;
-
-  if (payload === "yes") {
-    response = { text: "Thanks!" };
-  } else if (payload === "no") {
-    response = { text: "Oops, try sending another image." };
-  }
-}
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"), (err) => {
-    if (err) {
-      res.status(500).send(err);
-    }
+    res.sendFile(path.join(__dirname, "../public/index.html"), (err) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+    });
   });
-});
 app.listen(PORT, () => console.log(`listening ${PORT}`));
