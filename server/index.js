@@ -58,20 +58,22 @@ function handleMessage(sender_psid, received_message) {
   console.log("intents:", received_message.nlp.intents);
   console.log("entities:", received_message.nlp.entities);
   console.log("detected_locales:", received_message.nlp.detected_locales);
-  if (received_message.nlp.intents.name === "greetings") {
+  let name = received_message.nlp.intents[0].name;
+  let confidence = received_message.nlp.intent[0].confidence;
+  if (name === "greetings" && confidence > 0.8) {
     response = {
       text: "Hello there how are you feeling today!",
     };
-  } else if (received_message.nlp.intents.name === "bye") {
+  } else if (name === "bye" && confidence > 0.8) {
     response = {
       text: "Thank you come visit us again soon!",
     };
-  } else if (received_message.nlp.intents.name === "thanks") {
+  } else if (name === "thanks" && confidence > 0.8) {
     response = {
       text: "You\re welcome!",
     };
   } 
-  else if (received_message.nlp.intents.name === "sick") {
+  else if (name === "sick" && confidence > 0.8) {
     response = {
       text: "I'm sorry you're not feeling well today. Please visit https://boiling-wave-53146.herokuapp.com/recommend for a recommendation to help you feel better!",
     };
