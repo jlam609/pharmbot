@@ -16,7 +16,7 @@ const Search = ({ drug, data, dispatch, updateDrug, search }) => {
     dispatch(clearAll());
   }, []);
   return (
-    <div>
+    <div className="search">
       <h1>Search For A Drug</h1>
       <form>
         <input value={drug} onChange={(e) => updateDrug(e)}></input>

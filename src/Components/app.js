@@ -9,8 +9,10 @@ import Result from "./result";
 const App = () => {
   return (
     <div>
-      <h1>Welcome to RxPanda</h1>
-      <Nav />
+      <div className="header">
+        <h1>Welcome to RxPanda</h1>
+        <Nav />
+      </div>
       <Switch>
         <Route path="/home" component={Home} />
         <Route path="/search" component={Search} />

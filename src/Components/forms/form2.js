@@ -8,18 +8,36 @@ import {
   Button,
 } from "@material-ui/core";
 import { connect } from "react-redux";
-import {useHistory} from "react-router-dom"
-import { setPregnant, setView, setAge } from "../../Store/actions";
+import { useHistory } from "react-router-dom";
+import { setPregnant, setView, setAge, setGender } from "../../Store/actions";
 
-const Form2 = ({ dispatch, pregnant, view, age, symptom, handleSubmit}) => {
-    const history = useHistory()
+const Form2 = ({
+  dispatch,
+  pregnant,
+  view,
+  age,
+  symptom,
+  handleSubmit,
+  gender,
+}) => {
+  const history = useHistory();
   return (
     <div className={view === "form2" ? "recommendForm" : "ghost"}>
       <h4>Additional Information Needed</h4>
       <FormControl component="fieldset">
+        <FormLabel component="legend">What is your gender?</FormLabel>
+        <RadioGroup
+          value={gender}
+          onChange={(e) => dispatch(setGender(e.target.value))}
+        >
+          <FormControlLabel value="Male" control={<Radio />} label="Male" />
+          <FormControlLabel value="Female" control={<Radio />} label="Female" />
+        </RadioGroup>
+        <br />
+        <hr />
         <FormLabel component="legend">Are You Pregnant?</FormLabel>
         <RadioGroup
-          value={pregnant}
+          value={gender === "Male" ? "No" : pregnant}
           onChange={(e) => dispatch(setPregnant(e.target.value))}
         >
           <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
@@ -32,15 +50,14 @@ const Form2 = ({ dispatch, pregnant, view, age, symptom, handleSubmit}) => {
           value={age}
           onChange={(e) => dispatch(setAge(e.target.value))}
         >
-          <FormControlLabel value="2" control={<Radio />} label="2 and Under" />
-          <FormControlLabel value="5" control={<Radio />} label="5-12" />
-          <FormControlLabel value="13" control={<Radio />} label="13-17" />
-          <FormControlLabel value="18" control={<Radio />} label="Over 18" />
+          <FormControlLabel value="2" control={<Radio />} label="2 - 4" />
+          <FormControlLabel value="5" control={<Radio />} label="5-10" />
+          <FormControlLabel value="18" control={<Radio />} label="Over 10" />
         </RadioGroup>
       </FormControl>
       <Button
-        onClick={(e) => handleSubmit(e, symptom, history)}
-        disabled={!pregnant || !age}
+        onClick={(e) => handleSubmit(e, symptom, history, age)}
+        disabled={!pregnant || !age || !gender}
       >
         Submit Answers
       </Button>
@@ -48,28 +65,31 @@ const Form2 = ({ dispatch, pregnant, view, age, symptom, handleSubmit}) => {
   );
 };
 
-const mapState = ({ view, pregnant, age, symptom }) => {
+const mapState = ({ view, pregnant, age, symptom, gender }) => {
   return {
     view,
     pregnant,
     age,
     symptom,
+    gender,
   };
 };
 const mapDispatch = (dispatch) => {
-   const handleSubmit = (e, symptom, history) => {
-    e.preventDefault()
-    if (symptom === 'Rash'){
-        dispatch(setView('form3'))
+  const handleSubmit = (e, symptom, history, age) => {
+    e.preventDefault();
+    if (
+      (symptom === "Rash" && age !== "2") ||
+      (symptom === "Pain" && age !== "2")
+    ) {
+      dispatch(setView("form3"));
+    } else {
+      history.push(`/result`);
+      dispatch(setView("form1"));
     }
-    else {
-        dispatch(setView('form1'))
-        history.push(`/result`)
-    }
-   }
+  };
   return {
     dispatch,
-    handleSubmit
+    handleSubmit,
   };
 };
 export default connect(mapState, mapDispatch)(Form2);

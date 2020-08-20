@@ -47,12 +47,18 @@ const searchDrug = (e, drug) => {
     }
   };
 };
-
-const setRashResult = (rashResult) => {
-    type:TYPES.SET_RASH_RESULT,
-    rashResult
-}
-
+const setGender = (gender) => ({
+  type: TYPES.SET_GENDER,
+  gender,
+});
+const setRashResult = (rashResult) => ({
+  type: TYPES.SET_RASH_RESULT,
+  rashResult,
+});
+const setPainResult = (painResult) => ({
+    type:TYPES.SET_PAIN_RESULT,
+    painResult
+})
 export {
   setView,
   setAge,
@@ -62,5 +68,7 @@ export {
   setDrug,
   clearAll,
   searchDrug,
-  setRashResult
+  setRashResult,
+  setGender,
+  setPainResult
 };

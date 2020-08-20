@@ -5,11 +5,13 @@ import thunks from "redux-thunk";
 const initialState = {
   age: 0,
   view: "form1",
-  pregnant: "",
+  pregnant: "No",
   symptom: "",
   data: {},
   drug: "",
   rashResult: "",
+  gender: "",
+  painResult: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -53,6 +55,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         rashResult: action.rashResult,
       };
+    case TYPES.SET_GENDER:
+      return {
+        ...state,
+        gender: action.gender,
+      };
+    case TYPES.SET_PAIN_RESULT:
+      return {
+        ...state,
+        painResult:action.painResult
+      }
     default:
       return state;
   }

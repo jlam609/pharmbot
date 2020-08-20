@@ -7,7 +7,7 @@ import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 
 const Nav = () => {
   return (
-    <div>
+    <div className = 'navBar'>
       <Link to="/home">
         <IconButton>
           <HomeIcon />
