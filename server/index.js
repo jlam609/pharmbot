@@ -55,9 +55,9 @@ app.get("/webhook", (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
-  let intents = {...received_message.nlp.intents}
-  let name = intents.name;
-  let confidence = intents.confidence;
+  let intents = [...received_message.nlp.intents]
+  let name = intents[0].name;
+  let confidence = intents[0].confidence;
   console.log("name:", name, "confidence:", confidence , "intents", intents)
   if (name === "greetings" && confidence > 0.8) {
     response = {
