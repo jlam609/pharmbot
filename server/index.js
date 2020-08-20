@@ -55,10 +55,10 @@ app.get("/webhook", (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
-  console.log(recieved_message.nlp.entities)
+  console.log(received_message)
   if (received_message.text) {
     response = {
-      text: `Thank you for contacting us! Please visit https://boiling-wave-53146.herokuapp.com/recommend for a e`,
+      text: `Thank you for contacting us! Please visit https://boiling-wave-53146.herokuapp.com/recommend for a recommendation`,
     };
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
