@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, "../dist")));
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const request = require("request");
 const body_parser = require("body-parser");
-app.use(body_parser.json()); 
+app.use(body_parser.json());
 
 app.post("/webhook", (req, res) => {
   let body = req.body;
@@ -55,12 +55,29 @@ app.get("/webhook", (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
-  console.log("intents:",received_message.nlp.intents)
-  console.log("entities:",received_message.nlp.entities)
-  console.log("detected_locales:", received_message.nlp.detected_locales)
-  if (received_message.text) {
+  console.log("intents:", received_message.nlp.intents);
+  console.log("entities:", received_message.nlp.entities);
+  console.log("detected_locales:", received_message.nlp.detected_locales);
+  if (received_message.nlp.intents.name === "greetings") {
     response = {
-      text: `Thank you for contacting us! Please visit https://boiling-wave-53146.herokuapp.com/recommend for a recommendation`,
+      text: "Hello there how are you feeling today!",
+    };
+  } else if (received_message.nlp.intents.name === "bye") {
+    response = {
+      text: "Thank you come visit us again soon!",
+    };
+  } else if (received_message.nlp.intents.name === "thanks") {
+    response = {
+      text: "You\re welcome!",
+    };
+  } 
+  else if (received_message.nlp.intents.name === "sick") {
+    response = {
+      text: "I'm sorry you're not feeling well today. Please visit https://boiling-wave-53146.herokuapp.com/recommend for a recommendation to help you feel better!",
+    };
+  } else if (received_message.text) {
+    response = {
+      text: `Thank you for contacting us! This bot needs more training!`,
     };
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
@@ -141,10 +158,10 @@ function callSendAPI(sender_psid, response) {
   );
 }
 app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/index.html"), (err) => {
-      if (err) {
-        res.status(500).send(err);
-      }
-    });
+  res.sendFile(path.join(__dirname, "../public/index.html"), (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
   });
+});
 app.listen(PORT, () => console.log(`listening ${PORT}`));
