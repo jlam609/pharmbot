@@ -58,7 +58,6 @@ function handleMessage(sender_psid, received_message) {
   let intents = [...received_message.nlp.intents]
   let name = intents[0].name;
   let confidence = intents[0].confidence;
-  console.log("name:", name, "confidence:", confidence , "intents", intents)
   if (name === "greetings" && confidence > 0.8) {
     response = {
       text: "Hello there how are you feeling today!",
@@ -69,7 +68,7 @@ function handleMessage(sender_psid, received_message) {
     };
   } else if (name === "thanks" && confidence > 0.8) {
     response = {
-      text: "You\re welcome!",
+      text: "You're welcome!",
     };
   } 
   else if (name === "sick" && confidence > 0.8) {
