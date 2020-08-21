@@ -3,15 +3,34 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require("path");
 const dotenv = require("dotenv");
+const cors = require("cors");
+const axios = require("axios");
 dotenv.config();
 
-app.use(express.static(path.join(__dirname, "../public")));
-app.use(express.static(path.join(__dirname, "../dist")));
+app.use(cors());
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const request = require("request");
 const body_parser = require("body-parser");
 app.use(body_parser.json());
+
+app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../dist")));
+
+app.get("/covidData", async (req, res) => {
+  try {
+    const covidDataSource = (
+      await axios({
+        url: `https://api.covidtracking.com/v1/states/current.json`,
+        method: "get",
+        headers: { "Access-Control-Allow-Origin": "*" },
+      })
+    ).data;
+    res.status(200).send(covidDataSource);
+  } catch (e) {
+    console.error(e);
+  }
+});
 
 app.post("/webhook", (req, res) => {
   let body = req.body;
@@ -55,7 +74,7 @@ app.get("/webhook", (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
-  let intents = [...received_message.nlp.intents]
+  let intents = [...received_message.nlp.intents];
   let name = intents[0].name;
   let confidence = intents[0].confidence;
   if (name === "greetings" && confidence > 0.8) {
@@ -70,10 +89,10 @@ function handleMessage(sender_psid, received_message) {
     response = {
       text: "You're welcome!",
     };
-  } 
-  else if (name === "sick" && confidence > 0.8) {
+  } else if (name === "sick" && confidence > 0.8) {
     response = {
-      text: "I'm sorry you're not feeling well today. Please visit https://boiling-wave-53146.herokuapp.com/recommend for a recommendation to help you feel better!",
+      text:
+        "I'm sorry you're not feeling well today. Please visit https://boiling-wave-53146.herokuapp.com/recommend for a recommendation to help you feel better!",
     };
   } else if (received_message.text) {
     response = {

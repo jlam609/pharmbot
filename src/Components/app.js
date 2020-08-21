@@ -5,6 +5,7 @@ import Search from "./search";
 import Home from "./home";
 import Recommend from "./recommend";
 import Result from "./result";
+import Covid from "./covid";
 
 const App = () => {
   return (
@@ -18,16 +19,9 @@ const App = () => {
         <Route path="/search" component={Search} />
         <Route path="/recommend" component={Recommend} />
         <Route path="/result" component={Result} />
+        <Route path="/covid" component={Covid} />
         <Redirect to="/home" />
       </Switch>
-      <div
-      class="fb-customerchat"
-      attribution="setup_tool"
-      page_id="129050512054424"
-      theme_color="#fa3c4c"
-      logged_in_greeting="Hi! How are you feeling today?"
-      logged_out_greeting="Hi! Thank you for visiting us! Come back soon!"
-    ></div>
     </div>
   );
 };

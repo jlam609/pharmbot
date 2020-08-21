@@ -11,7 +11,9 @@ const initialState = {
   drug: "",
   rashResult: "",
   gender: "",
-  painResult: ""
+  painResult: "",
+  covidView: "USSTATES",
+  covidData: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -64,6 +66,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         painResult:action.painResult
+      }
+    case TYPES.SET_COVID_VIEW:
+      return {
+        ...state,
+        covidView: action.covidView
+      }
+    case TYPES.SET_COVID_DATA:
+      return {
+        ...state,
+        covidData: action.covidData
       }
     default:
       return state;

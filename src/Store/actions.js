@@ -59,6 +59,14 @@ const setPainResult = (painResult) => ({
     type:TYPES.SET_PAIN_RESULT,
     painResult
 })
+const setCovidView = (covidView) => ({
+    type:TYPES.SET_COVID_VIEW,
+    covidView
+})
+const setCovidData = (covidData) => ({
+    type:TYPES.SET_COVID_DATA,
+    covidData,
+})
 export {
   setView,
   setAge,
@@ -70,5 +78,7 @@ export {
   searchDrug,
   setRashResult,
   setGender,
-  setPainResult
+  setPainResult,
+  setCovidView,
+  setCovidData,
 };
