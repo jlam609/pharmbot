@@ -93,7 +93,6 @@ const Form3 = ({ dispatch, view, rashResult, gender, symptom, painResult }) => {
 };
 
 const mapState = ({ view, rashResult, gender, symptom, painResult }) => {
-    console.log(painResult)
   return {
     view,
     rashResult,

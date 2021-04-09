@@ -70,7 +70,6 @@ const Form1 = ({ dispatch, symptom, view }) => {
 };
 
 const mapState = ({ view, symptom }) => {
-    console.log(symptom)
   return {
     view,
     symptom,

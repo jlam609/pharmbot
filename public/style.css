@@ -115,3 +115,6 @@
   flex-direction: column;
   margin-left: 0;
 }
+.panda{
+  object-fit: cover;
+}

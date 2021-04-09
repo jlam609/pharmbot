@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { render } from "react-dom";
 import App from "./Components/app";
 import { Provider } from "react-redux";
-import store from "./Store";
+import store from "./Store/index.js";
 
 render(
   <Provider store={store}>

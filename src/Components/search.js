@@ -138,7 +138,6 @@ const Search = ({ drug, data, dispatch, updateDrug, search }) => {
 };
 
 const mapState = ({ drug, data }) => {
-  console.log(drug, data);
   return {
     drug,
     data,
