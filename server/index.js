@@ -92,7 +92,7 @@ function handleMessage(sender_psid, received_message) {
   } else if (name === "sick" && confidence > 0.8) {
     response = {
       text:
-        "I'm sorry you're not feeling well today. Please visit https://pharmbotrx.herokuapp.com/home/recommend for a recommendation to help you feel better!",
+        "I'm sorry you're not feeling well today. Please visit https://pharmbotrx.herokuapp.com/recommend for a recommendation to help you feel better!",
     };
   } else if (received_message.text) {
     response = {
