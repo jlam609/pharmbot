@@ -1,25 +1,20 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "lib": [
-            "dom",
-            "es2015",
-            "es2016"
-        ],
-        "jsx": "react",
-        "target": "es2016",
-        "module": "es2015",
-        "moduleResolution": "node",
-        "noImplicitAny": false,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "removeComments": false,
-        "preserveConstEnums": true,
-        "sourceMap": true,
-        "allowJs": true
+      "allowSyntheticDefaultImports": true,
+      "lib": ["dom", "esnext", "es6"],
+      "jsx": "react",
+      "target": "esnext",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noImplicitAny": false,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "removeComments": false,
+      "sourceMap": true,
+      "allowJs": true,
+      "esModuleInterop": true,
+      "types": ["node"]
     },
-    "include": [
-        "./src/"
-    ]
-}
+    "include": ["src/**/*"]
+    }
