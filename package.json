@@ -6,7 +6,9 @@
   "scripts": {
     "build": "webpack",
     "build:watch": "webpack --watch",
-    "start": "node-dev --respawn server/index.js"
+    "start:server": "node-dev --respawn server",
+    "start": "node server",
+    "start:dev": "npm run build:watch & npm run start:server"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +26,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "node-dev": "^5.1.0",
+    "node-dev": "^5.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -40,6 +42,7 @@
     "@babel/core": "^7.11.1",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
+    "@types/node": "^14.14.37",
     "babel-loader": "^8.1.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"

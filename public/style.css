@@ -12,6 +12,25 @@
   bottom: 0;
   top: 0;
 }
+.home-background {
+  align-items: center;
+  background-image: url("https://previews.123rf.com/images/valeriyador/valeriyador2003/valeriyador200300143/143572493-header-for-medicine-science-or-pharmacy-design-seamless-medical-hand-drawn-background-simple-doodle-.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+}
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 78vh;
+  height: 78%;
+  align-items: center;
+}
+.home>*{
+  opacity: 100%;
+  color: black
+}
 .ghost {
   display: none;
 }
@@ -112,6 +131,6 @@
   flex-direction: column;
   margin-left: 0;
 }
-.panda{
+.panda {
   object-fit: cover;
 }
